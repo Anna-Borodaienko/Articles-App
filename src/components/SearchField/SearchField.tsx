@@ -1,8 +1,19 @@
-import { IconButton, InputBase } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import SearchIcon from '@mui/icons-material/Search';
+import debounce from 'lodash.debounce';
 
-export const SearchField: React.FC = () => {
+interface Props {
+  setFilter: (input: string) => void;
+}
+
+export const SearchField: React.FC<Props> = ({ setFilter }) => {
+  const debouncedSetFilter = debounce(setFilter, 500);
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedSetFilter(event.currentTarget.value);
+  }
+
   return (
     <>
       <div>
@@ -16,8 +27,11 @@ export const SearchField: React.FC = () => {
           <SearchIcon />
         </IconButton>
 
-        <InputBase
-          autoFocus
+        <TextField
+          id="search"
+          label="Search article"
+          type="search"
+          onChange={onChange}
         />
       </Paper>
     </>

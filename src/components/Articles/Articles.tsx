@@ -1,30 +1,34 @@
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react"
-import { articlesService } from "../../api/services/article.service";
-import { Article } from "../../models/Article";
-import { ArticleComponent } from "../Article/ArticleComponent";
+import { articlesService } from "../../api/services/ArticleService";
+import { Article as ArticleModel} from "../../models/Article";
+import { Article } from "../Article/Article";
+import { SearchField } from "../SearchField/SearchField";
 
 export const Articles: React.FC = () => {
   const [filter, setFilter] = useState('');
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<ArticleModel[]>([]);
  
   useEffect(() => {
     (async () => {
-      const fetchedArticles = await articlesService.getArticles();
-      setArticles(fetchedArticles!);
+      const fetchedArticles = await articlesService.getArticles(filter, filter);
+      setArticles(fetchedArticles);
     })();
-  }, []);
+  }, [filter]);
 
   return (
-    <Grid 
-      container
-      spacing={5}
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-    >
-      {articles.map(item => <ArticleComponent key={item.id} article={item} />)}
-
-    </Grid>
+    <>
+      <SearchField setFilter={setFilter} />
+      <Grid 
+        container
+        spacing={5}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        {articles.map(item => <Article key={item.id} article={item} />)}
+      </Grid>
+    </>
+    
   )
 }

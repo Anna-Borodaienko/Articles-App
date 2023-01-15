@@ -1,11 +1,23 @@
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Articles } from "./components/Articles/Articles";
-import { SearchField } from "./components/SearchField/SearchField";
+import { blue } from "@mui/material/colors";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#333',
+    },
+    secondary: blue,
+  },
+})
 
 function App() {
   return (
     <div className="App">
-      <SearchField />
-      <Articles />
+      <ThemeProvider theme={theme}>
+        <Articles />
+      </ThemeProvider>
+      
     </div>
   );
 }
