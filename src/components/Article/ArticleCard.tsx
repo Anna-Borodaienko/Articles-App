@@ -22,8 +22,8 @@ export const ArticleCard: React.FC<Props> = ({ article, highlightedWords }) => {
   const shortDescription = description.length > 100 ? `${description.slice(0, 100)}...` : description;
 
   return (
-    <Grid item xs sx={{ justifyContent: "center", alignItems: "center"}}>
-      <Card sx={{width: 400, height: 530, justifyContent: "center", alignItems: "center"}} className={styles.card}>
+    <Grid item xs>
+      <Card sx={{width: 400, height: 530 }} className={styles.card}>
         <CardMedia 
           sx={{height: 200, width: 400}}
           image={imageUrl}
@@ -53,7 +53,7 @@ export const ArticleCard: React.FC<Props> = ({ article, highlightedWords }) => {
         </CardContent>
 
         <CardActions>
-          <Link to={`/${id}`} style={styles.link}>
+          <Link to={`/${id}`} className={styles.link}>
             <Button size="small" startIcon={<ArrowForwardIcon fontSize='small' />}>
               Read more
             </Button>
