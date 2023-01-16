@@ -6,17 +6,16 @@ import { Article as ArticleModel} from "../../models/Article";
 import { Button, Card, CardActions, CardContent, CardMedia } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export const FullInfo: React.FC = () => {
+export const ArticlePage: React.FC = () => {
   const [selectedArticle, setArticle] = useState<ArticleModel | null>(null);
   const { id } = useParams();
 
   useEffect(() => {
     (async () => {
       const fetchedArticle = await articlesService.getById(+id!);
-
       setArticle(fetchedArticle);
     })();
-  }, []);
+  }, [id]);
 
   return (
     <Card sx={{minHeight: '90vh'}}>

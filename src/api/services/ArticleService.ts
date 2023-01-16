@@ -1,24 +1,24 @@
+import qs from 'qs';
 import { api } from "../ApiHelper";
 
 import { Article } from "../../models/Article";
-
 
 class ArticlesService {
   endpoint = '/articles';
 
   async getArticles(
-    title?: string, 
-    description?: string,
+    filter?: string, 
   ): Promise<Article[]> {
-    const params: any = {};
-   
-    if (title) {
-      params['_where[_or][0][title_contains]'] = title
-    };
+    const filterArray = filter?.trim().split(' ').map(item => ` ${item} `);
 
-    if (description) {
-      params['_where[_or][1][summary_contains]'] = description
-    }
+    let params: any = {
+      '_limit': 30,
+    };
+   
+    if (filter) {
+      params['_where[_or][title_contains]'] = filterArray;
+      params['_where[_or][summary_contains]'] = filterArray;
+    };
 
     const articles = await api.get<any[]>(this.endpoint, params);
 
@@ -31,7 +31,7 @@ class ArticlesService {
         description: article.summary,
         publishedAt: article.publishedAt,
       }
-    });    
+    });  
   };
 
   async getById(id: number): Promise<Article> {
@@ -44,7 +44,6 @@ class ArticlesService {
       description: article.summary,
       publishedAt: article.publishedAt,
     }
-
   }
 }
 

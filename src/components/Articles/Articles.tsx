@@ -1,27 +1,21 @@
-import { Grid } from "@mui/material";
-import { useEffect, useState } from "react"
-import { articlesService } from "../../api/services/ArticleService";
-import { Article as ArticleModel} from "../../models/Article";
-import { Article } from "../Article/Article";
+import { Grid, Typography } from "@mui/material";
+import React, { useState } from "react"
+import { useArticles } from "../../hooks/useArticles";
+import { ArticleCard } from "../Article/ArticleCard";
 import { SearchField } from "../SearchField/SearchField";
 
 export const Articles: React.FC = () => {
   const [filter, setFilter] = useState('');
-  const [articles, setArticles] = useState<ArticleModel[]>([]);
+  const { articles } = useArticles(filter); 
  
-  useEffect(() => {
-    (async () => {
-      const fetchedArticles = await articlesService.getArticles(filter, filter);
-      setArticles(fetchedArticles);
-    })();
-  }, [filter]);
-
-  console.log(filter);
-  
-
   return (
     <>
       <SearchField setFilter={setFilter} />
+
+      <Typography variant="subtitle1" sx={{mb: 2}}>
+        Results: {articles.length}
+      </Typography>
+
       <Grid 
         container
         spacing={5}
@@ -29,7 +23,7 @@ export const Articles: React.FC = () => {
         justifyContent="center"
         alignItems="center"
       >
-        {articles.map(item => <Article key={item.id} article={item} highlightedWord={filter}/>)}
+        {articles.map(item => <ArticleCard key={item.id} article={item} highlightedWords={filter.split(' ')}/>)}
       </Grid>
     </>
     

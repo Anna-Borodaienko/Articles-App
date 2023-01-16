@@ -1,4 +1,4 @@
-import { Box, FormControl, IconButton, InputBase, TextField } from "@mui/material";
+import { IconButton, InputBase, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import SearchIcon from '@mui/icons-material/Search';
 import debounce from 'lodash.debounce';
@@ -17,9 +17,10 @@ export const SearchField: React.FC<Props> = ({ setFilter }) => {
 
   return (
     <>
-      <div>
+      <Typography variant="subtitle1">
         Filter by keywords
-      </div>
+      </Typography>
+      
       <Paper
         component="form"
         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 600, height: 50, mt: 2, mb: 4 }}
