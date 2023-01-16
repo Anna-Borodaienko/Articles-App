@@ -6,15 +6,19 @@ import { Article as ArticleModel} from "../../models/Article";
 import { Button, Card, CardActions, CardContent, CardMedia, Container } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './ArticlePage.module.scss';
+import { Loader } from '../Loader/Loader';
 
 export const ArticlePage: React.FC = () => {
   const [selectedArticle, setArticle] = useState<ArticleModel | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       const fetchedArticle = await articlesService.getById(+id!);
       setArticle(fetchedArticle);
+      setIsLoading(false);
     })();
   }, [id]);
 
@@ -27,6 +31,7 @@ export const ArticlePage: React.FC = () => {
         alt='Photo'
       />
       <Container className={styles.container}>
+        {isLoading && <Loader /> }
         <CardContent className={styles.content}>
         <Typography gutterBottom sx = {{height: 80, fontSize: 24, textAlign: 'center'}}>
           {selectedArticle?.title}
@@ -46,6 +51,6 @@ export const ArticlePage: React.FC = () => {
           </Button>
         </Link>
       </CardActions>
-      </Card>
+    </Card>
   )
 }

@@ -23,14 +23,15 @@ const theme = createTheme({
 
 function App() {
   return (
-    <div className={styles.container}>
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path='/' element={<Articles />} />
-          <Route path='/:id' element={<ArticlePage />} />
-        </Routes>
-      </ThemeProvider>
-    </div>
+    
+      <div className={styles.container}>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path='/' element={<Articles />} />
+            <Route path='/:id' element={<ArticlePage />} />
+          </Routes>
+        </ThemeProvider>
+      </div>
   );
 }
 

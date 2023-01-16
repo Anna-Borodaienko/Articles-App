@@ -4,6 +4,7 @@ import { articlesService } from "../api/services/ArticleService";
 
 export const useArticles = (filter: string) => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sortArticles = useCallback((articles: Article[], filter: string): Article[] => {
     return articles.sort((a1, a2) => compare(a1, a2, filter));
@@ -11,9 +12,11 @@ export const useArticles = (filter: string) => {
   
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       const fetchedArticles = await articlesService.getArticles(filter);
       const sortedArticles = sortArticles(fetchedArticles, filter);
       setArticles(sortedArticles!);
+      setIsLoading(false);
     })();
   }, [filter, sortArticles]);
 
@@ -35,5 +38,5 @@ export const useArticles = (filter: string) => {
     return 0;
   }
 
-  return { articles };
+  return { articles, isLoading };
 }
