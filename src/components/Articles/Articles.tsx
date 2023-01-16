@@ -16,6 +16,9 @@ export const Articles: React.FC = () => {
     })();
   }, [filter]);
 
+  console.log(filter);
+  
+
   return (
     <>
       <SearchField setFilter={setFilter} />

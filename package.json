@@ -23,6 +23,7 @@
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.18.0",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
     "typed-assert": "^1.0.9",
@@ -55,6 +56,7 @@
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.7",
-    "@types/lodash.escaperegexp": "^4.1.7"
+    "@types/lodash.escaperegexp": "^4.1.7",
+    "@types/react-highlight-words": "^0.16.4"
   }
 }

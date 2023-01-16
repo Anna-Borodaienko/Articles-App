@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import moment from 'moment';
 import { DateFormat } from '../../common/enums/DateFormat';
+import Highlighter from "react-highlight-words";
 
 interface Props {
   article: ArticleModel;
@@ -31,11 +32,19 @@ export const Article: React.FC<Props> = ({ article, highlightedWord }) => {
           </Typography>
 
           <Typography gutterBottom component='div' variant="subtitle1" sx={{height: 60}}>
-            {title}
+            <Highlighter
+              searchWords={highlightedWord.split(' ')}
+              textToHighlight={title}
+              autoEscape
+              />
           </Typography>
 
           <Typography gutterBottom component='div' variant="body2" sx={{height: 150}}>
-            {shortDescription}
+          <Highlighter
+              searchWords={highlightedWord.split(' ')}
+              textToHighlight={shortDescription}
+              autoEscape
+              />
           </Typography>
         </CardContent>
 
