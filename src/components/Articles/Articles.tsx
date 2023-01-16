@@ -26,7 +26,7 @@ export const Articles: React.FC = () => {
         justifyContent="center"
         alignItems="center"
       >
-        {articles.map(item => <Article key={item.id} article={item} />)}
+        {articles.map(item => <Article key={item.id} article={item} highlightedWord={filter}/>)}
       </Grid>
     </>
     

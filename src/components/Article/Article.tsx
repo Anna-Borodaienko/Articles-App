@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button, Card, CardActions, CardContent, CardMedia, Grid } from '@mui/material';
 import { Article as ArticleModel } from '../../models/Article';
 import Typography from '@mui/material/Typography';
@@ -7,13 +8,14 @@ import { DateFormat } from '../../common/enums/DateFormat';
 
 interface Props {
   article: ArticleModel;
+  highlightedWord: string;
 }
 
-export const Article: React.FC<Props> = ({ article }) => {
-  const { title, imageUrl, description, publishedAt } = article;
+export const Article: React.FC<Props> = ({ article, highlightedWord }) => {
+  const { id, title, imageUrl, description, publishedAt } = article;
 
   const date = moment(publishedAt).format(DateFormat.MMMM_YYYY);
-  const shortDescription = description.slice(0, 100);
+  const shortDescription = description.length > 100 ? `${description.slice(0, 100)}...` : description;
 
   return (
     <Grid item xs>
@@ -38,11 +40,12 @@ export const Article: React.FC<Props> = ({ article }) => {
         </CardContent>
 
         <CardActions>
-        <Button size="small" component='div'>
-          Read more
-          <ArrowForwardIcon fontSize='small' />
-        </Button>
-        
+          <Link to={`/${id}`} >
+            <Button size="small" component='div'>
+              Read more
+              <ArrowForwardIcon fontSize='small' />
+            </Button>
+          </Link>
       </CardActions>
       </Card>
     </Grid>

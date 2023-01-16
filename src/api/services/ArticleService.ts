@@ -20,8 +20,7 @@ class ArticlesService {
       params['_where[_or][1][summary_contains]'] = description
     }
 
-    const articles = await api.get<any[]>(this.endpoint, params
-    );
+    const articles = await api.get<any[]>(this.endpoint, params);
 
     return articles.map(article => {
       return {
@@ -32,8 +31,20 @@ class ArticlesService {
         description: article.summary,
         publishedAt: article.publishedAt,
       }
+    });    
+  };
+
+  async getById(id: number): Promise<Article> {
+    const article = await api.getById<any>(this.endpoint, id);
+    return {
+      id: article.id,
+      title: article.title,
+      url: article.url,
+      imageUrl: article.imageUrl,
+      description: article.summary,
+      publishedAt: article.publishedAt,
     }
-      );
+
   }
 }
 

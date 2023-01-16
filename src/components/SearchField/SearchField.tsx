@@ -1,4 +1,4 @@
-import { IconButton, TextField } from "@mui/material";
+import { Box, FormControl, IconButton, InputBase, TextField } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import SearchIcon from '@mui/icons-material/Search';
 import debounce from 'lodash.debounce';
@@ -11,6 +11,7 @@ export const SearchField: React.FC<Props> = ({ setFilter }) => {
   const debouncedSetFilter = debounce(setFilter, 500);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     debouncedSetFilter(event.currentTarget.value);
   }
 
@@ -23,14 +24,17 @@ export const SearchField: React.FC<Props> = ({ setFilter }) => {
         component="form"
         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 600, height: 50, mt: 2, mb: 4 }}
       >
-        <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+        <IconButton 
+          type="button" 
+          sx={{ p: '10px' }} 
+          aria-label="search"
+        >
           <SearchIcon />
         </IconButton>
 
-        <TextField
-          id="search"
-          label="Search article"
-          type="search"
+        <InputBase
+          id="standard-basic"
+          fullWidth
           onChange={onChange}
         />
       </Paper>

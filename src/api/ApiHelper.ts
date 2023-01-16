@@ -12,6 +12,15 @@ class Api {
 
     return data;
   }
+
+  async getById<Response>(
+    url: string,
+    id: number,
+  ): Promise<Response> {
+    const { data } = await axios(`${this.BASE_URL}${url}/${id}`);
+
+    return data;
+  }
 }
 
 export const api = new Api();
