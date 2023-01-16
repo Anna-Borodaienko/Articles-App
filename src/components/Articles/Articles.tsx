@@ -18,7 +18,7 @@ export const Articles: React.FC = () => {
 
       <Grid 
         container
-        spacing={5}
+        spacing={10}
         direction="row"
         justifyContent="center"
         alignItems="center"

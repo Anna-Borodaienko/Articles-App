@@ -22,7 +22,7 @@ export const ArticleCard: React.FC<Props> = ({ article, highlightedWords }) => {
   const shortDescription = description.length > 100 ? `${description.slice(0, 100)}...` : description;
 
   return (
-    <Grid item xs>
+    <Grid item xs="auto">
       <Card sx={{width: 400, height: 530 }} className={styles.card}>
         <CardMedia 
           sx={{height: 200, width: 400}}
@@ -30,12 +30,12 @@ export const ArticleCard: React.FC<Props> = ({ article, highlightedWords }) => {
         />
 
         <CardContent>
-          <Typography gutterBottom variant="body2" sx={{height: 30, opacity: 0.8}}>
+          <Typography gutterBottom sx={{height: 30, opacity: 0.8, fontSize: 14}}>
             <CalendarTodayIcon sx={{fontSize: 'small', mr: 1}}/>
             {date}
           </Typography>
 
-          <Typography gutterBottom variant="subtitle1" sx={{height: 100}}>
+          <Typography gutterBottom sx={{height: 100, fontSize: 20}}>
             <Highlighter
               searchWords={highlightedWords}
               textToHighlight={shortTitle}
@@ -43,7 +43,7 @@ export const ArticleCard: React.FC<Props> = ({ article, highlightedWords }) => {
               />
           </Typography>
 
-          <Typography gutterBottom variant="body1" sx={{height: 100}}>
+          <Typography gutterBottom sx={{height: 100, fontSize: 16}}>
           <Highlighter
               searchWords={highlightedWords}
               textToHighlight={shortDescription}

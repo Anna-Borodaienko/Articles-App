@@ -12,15 +12,12 @@ const theme = createTheme({
   },
 
   typography: {
-    body1: {
-      fontSize: 16,
-    },
-    body2: {
-      fontSize: 14,
-    },
-    subtitle1: {
-      fontSize: 20,
-    }
+    fontFamily: [
+      'Montserrat',
+      'Roboto',
+      'Arial',
+      'sans-serif',
+    ].join(','),
   }
 })
 
@@ -32,9 +29,7 @@ function App() {
           <Route path='/' element={<Articles />} />
           <Route path='/:id' element={<ArticlePage />} />
         </Routes>
-        
       </ThemeProvider>
-      
     </div>
   );
 }
