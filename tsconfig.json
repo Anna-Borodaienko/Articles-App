@@ -23,5 +23,6 @@
   "include": [
     "src",
     "declaration.d.ts",
+    ".eslintrc.js"
   ]
 }

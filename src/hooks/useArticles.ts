@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-import { Article } from "../models/Article";
-import { articlesService } from "../api/services/ArticleService";
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { useCallback, useEffect, useState } from 'react';
+import { Article } from '../models/Article';
+import { articlesService } from '../api/services/ArticleService';
 
 export const useArticles = (filter: string) => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -9,13 +10,13 @@ export const useArticles = (filter: string) => {
   const sortArticles = useCallback((articles: Article[], filter: string): Article[] => {
     return articles.sort((a1, a2) => compare(a1, a2, filter));
   }, []);
-  
+
   useEffect(() => {
     (async () => {
       setIsLoading(true);
       const fetchedArticles = await articlesService.getArticles(filter);
       const sortedArticles = sortArticles(fetchedArticles, filter);
-      setArticles(sortedArticles!);
+      setArticles(sortedArticles);
       setIsLoading(false);
     })();
   }, [filter, sortArticles]);
@@ -36,7 +37,7 @@ export const useArticles = (filter: string) => {
     if (!titleIncludesFilter && otherTitleIncludesFilter) return 1;
 
     return 0;
-  }
+  };
 
   return { articles, isLoading };
-}
+};
