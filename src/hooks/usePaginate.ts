@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { useEffect, useState } from 'react';
-import { articlesService } from '../api/services/ArticleService';
-import { ArticlesPerPage } from '../common/enums/ArticlesPerPage';
 
-export const usePaginate = (filter: string) => {
+export const usePaginate = (getCount: () => Promise<number>) => {
   const [pageCount, setPageCount] = useState(1);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
+
+  const itemsPerPage = 6;
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -17,17 +17,17 @@ export const usePaginate = (filter: string) => {
     setPage(1);
   };
 
-  const firstArticleOnPage =
-    page * ArticlesPerPage.ArticlesNumberPerPage - ArticlesPerPage.ArticlesNumberPerPage;
+  const from = (page - 1) * itemsPerPage;
+  const to = from + itemsPerPage;
 
   useEffect(() => {
     (async () => {
-      let count = await articlesService.getNumberOfArticles(filter);
+      let count = await getCount();
       setCount(count);
-      count = Math.ceil(count / ArticlesPerPage.ArticlesNumberPerPage);
+      count = Math.ceil(count / itemsPerPage);
       setPageCount(count);
     })();
-  }, [filter]);
+  }, [getCount]);
 
-  return { page, pageCount, count, handlePageChange, firstArticleOnPage, resetPages };
+  return { page, pageCount, count, handlePageChange, from, to, resetPages };
 };

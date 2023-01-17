@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Article } from '../models/Article';
 import { articlesService } from '../api/services/ArticleService';
 
-export const useArticles = (filter: string, firstArticle: number) => {
+export const useArticles = (from: number, to: number, filter: string) => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -14,12 +14,12 @@ export const useArticles = (filter: string, firstArticle: number) => {
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      const fetchedArticles = await articlesService.getArticles(firstArticle, filter);
+      const fetchedArticles = await articlesService.getArticles(from, to, filter);
       const sortedArticles = sortArticles(fetchedArticles, filter);
       setArticles(sortedArticles);
       setIsLoading(false);
     })();
-  }, [filter, sortArticles, firstArticle]);
+  }, [filter, sortArticles, from, to]);
 
   const compare = (first: Article, other: Article, filter: string): number => {
     const titleIncludesFilter = first.title.includes(filter);

@@ -1,17 +1,16 @@
 import { api } from '../ApiHelper';
 
 import { Article } from '../../models/Article';
-import { ArticlesPerPage } from '../../common/enums/ArticlesPerPage';
 
 class ArticlesService {
   endpoint = '/articles';
 
-  async getArticles(firstArticleOnPage: number, filter?: string): Promise<Article[]> {
+  async getArticles(from: number, to: number, filter?: string): Promise<Article[]> {
     const filterArray = filter?.trim().split(' ');
 
     const params: any = {
-      _limit: ArticlesPerPage.ArticlesNumberPerPage,
-      _start: firstArticleOnPage,
+      _limit: to - from,
+      _start: from,
     };
 
     if (filter) {
@@ -36,22 +35,20 @@ class ArticlesService {
   async getNumberOfArticles(filter?: string): Promise<number> {
     const filterArray = filter?.trim().split(' ');
 
-    const params: any = {
-      _limit: ArticlesPerPage.ArticlesNumberPerPage,
-    };
+    const params: any = {};
 
     if (filter) {
       params['_where[_or][title_contains]'] = filterArray;
       params['_where[_or][summary_contains]'] = filterArray;
     }
 
-    const numberOfArticles = await api.getArticleCount<number>(this.endpoint, params);
+    const numberOfArticles = await api.get<number>(`${this.endpoint}/count`, params);
 
     return numberOfArticles;
   }
 
   async getById(id: number): Promise<Article> {
-    const article = await api.getById<any>(this.endpoint, id);
+    const article = await api.get<any>(`${this.endpoint}/${id}`);
     return {
       id: article.id,
       title: article.title,

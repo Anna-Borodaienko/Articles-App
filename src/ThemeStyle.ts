@@ -4,7 +4,7 @@ import { Colors } from './common/enums/Colors';
 export const theme = createTheme({
   palette: {
     primary: {
-      main: Colors.main,
+      main: Colors.MAIN,
     },
   },
 
