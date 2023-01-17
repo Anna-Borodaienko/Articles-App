@@ -4,18 +4,17 @@
 import { api } from '../ApiHelper';
 
 import { Article } from '../../models/Article';
+import { ArticlesPerPage } from '../../common/enums/ArticlesPerPage';
 
 class ArticlesService {
   endpoint = '/articles';
 
-  async getArticles(filter?: string): Promise<Article[]> {
-    const filterArray = filter
-      ?.trim()
-      .split(' ')
-      .map((item) => ` ${item} `);
+  async getArticles(firstArticleOnPage: number, filter?: string): Promise<Article[]> {
+    const filterArray = filter?.trim().split(' ');
 
     const params: any = {
-      _limit: 30,
+      _limit: ArticlesPerPage.ArticlesNumberPerPage,
+      _start: firstArticleOnPage,
     };
 
     if (filter) {
@@ -35,6 +34,23 @@ class ArticlesService {
         publishedAt: article.publishedAt,
       };
     });
+  }
+
+  async getNumberOfArticles(filter?: string): Promise<number> {
+    const filterArray = filter?.trim().split(' ');
+
+    const params: any = {
+      _limit: ArticlesPerPage.ArticlesNumberPerPage,
+    };
+
+    if (filter) {
+      params['_where[_or][title_contains]'] = filterArray;
+      params['_where[_or][summary_contains]'] = filterArray;
+    }
+
+    const numberOfArticles = await api.getArticleCount<number>(this.endpoint, params);
+
+    return numberOfArticles;
   }
 
   async getById(id: number): Promise<Article> {

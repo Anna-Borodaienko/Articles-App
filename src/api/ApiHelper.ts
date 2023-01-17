@@ -17,6 +17,12 @@ class Api {
 
     return data;
   }
+
+  async getArticleCount<Response>(url: string, params?: object): Promise<Response> {
+    const { data } = await axios(`${this.BASE_URL}${url}/count?${qs.stringify(params)}`);
+
+    return data;
+  }
 }
 
 export const api = new Api();
