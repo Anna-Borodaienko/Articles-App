@@ -36,7 +36,7 @@ export const SearchField: React.FC<Props> = ({ setFilter }) => {
           <SearchIcon />
         </IconButton>
 
-        <InputBase id="standard-basic" fullWidth onChange={onChange} />
+        <InputBase id="standard-basic" fullWidth onChange={onChange} placeholder="Search article" />
       </Paper>
     </>
   );

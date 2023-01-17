@@ -34,7 +34,7 @@ export const ArticlePage: React.FC = () => {
         image={selectedArticle?.imageUrl}
         alt="Photo"
       />
-      <Container className={styles.container}>
+      <Container className={styles.container} sx={{ backgroundColor: 'white' }}>
         {isLoading && <Loader />}
         <CardContent className={styles.content}>
           <Typography gutterBottom sx={{ height: 80, fontSize: 24, textAlign: 'center' }}>

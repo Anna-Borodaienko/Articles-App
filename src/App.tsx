@@ -2,22 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { Articles } from './components/Articles/Articles';
 import { ArticlePage } from './components/ArticlePage/ArticlePage';
 import styles from './App.module.scss';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#333',
-    },
-  },
-
-  typography: {
-    fontFamily: ['Montserrat', 'Roboto', 'Arial', 'sans-serif'].join(','),
-  },
-});
+import { theme } from './ThemeStyle';
 
 function App() {
   return (
