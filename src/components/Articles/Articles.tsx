@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Grid, Typography } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useArticles } from '../../hooks/useArticles';
@@ -12,7 +10,8 @@ import { usePaginate } from '../../hooks/usePaginate';
 
 export const Articles: React.FC = () => {
   const [filter, setFilter] = useState('');
-  const { page, pageCount, handlePageChange, firstArticleOnPage, resetPages } = usePaginate(filter);
+  const { page, pageCount, count, handlePageChange, firstArticleOnPage, resetPages } =
+    usePaginate(filter);
   const { articles, isLoading } = useArticles(filter, firstArticleOnPage);
 
   const handleFilterChanging = useCallback(
@@ -28,7 +27,7 @@ export const Articles: React.FC = () => {
       <SearchField setFilter={handleFilterChanging} />
 
       <Typography variant="subtitle1" sx={{ mb: 2 }}>
-        Results: {articles.length}
+        Results: {count}
       </Typography>
 
       {isLoading && <Loader />}
