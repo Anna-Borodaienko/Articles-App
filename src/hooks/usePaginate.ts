@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export const usePaginate = (getCount: () => Promise<number>) => {
   const [pageCount, setPageCount] = useState(1);
@@ -8,14 +8,14 @@ export const usePaginate = (getCount: () => Promise<number>) => {
 
   const itemsPerPage = 6;
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
     window.scrollTo(0, 0);
-  };
+  }, []);
 
-  const resetPages = () => {
+  const resetPages = useCallback(() => {
     setPage(1);
-  };
+  }, []);
 
   const from = (page - 1) * itemsPerPage;
   const to = from + itemsPerPage;
