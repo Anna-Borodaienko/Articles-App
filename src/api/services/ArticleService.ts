@@ -24,7 +24,6 @@ class ArticlesService {
       return {
         id: article.id,
         title: article.title,
-        url: article.url,
         imageUrl: article.imageUrl,
         description: article.summary,
         publishedAt: article.publishedAt,
@@ -52,7 +51,6 @@ class ArticlesService {
     return {
       id: article.id,
       title: article.title,
-      url: article.url,
       imageUrl: article.imageUrl,
       description: article.summary,
       publishedAt: article.publishedAt,

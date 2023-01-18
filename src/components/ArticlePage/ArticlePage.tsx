@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React from 'react';
 import { useEffect, useState } from 'react';
@@ -25,21 +26,24 @@ export const ArticlePage: React.FC = () => {
   }, [id]);
 
   return (
-    <Card sx={{ minHeight: '90vh' }}>
+    <Card sx={{ minHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
       <CardMedia
         component="img"
         sx={{ height: 245 }}
         image={selectedArticle?.imageUrl}
         alt="Photo"
       />
-      <Container className={styles.container} sx={{ backgroundColor: 'white' }}>
+      <Container
+        className={styles.container}
+        sx={{ backgroundColor: 'white', minHeight: '70vh', minWidth: '90vw' }}
+      >
         {isLoading && <Loader />}
         <CardContent className={styles.content}>
-          <Typography gutterBottom sx={{ height: 80, fontSize: 24, textAlign: 'center' }}>
+          <Typography gutterBottom sx={{ fontSize: 28, textAlign: 'center', mt: 5 }}>
             {selectedArticle?.title}
           </Typography>
 
-          <Typography gutterBottom sx={{ height: 240, fontSize: 16 }}>
+          <Typography gutterBottom sx={{ fontSize: 20, mt: 10 }}>
             {selectedArticle?.description}
           </Typography>
         </CardContent>

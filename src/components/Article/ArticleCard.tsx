@@ -30,7 +30,9 @@ export const ArticleCard: React.FC<Props> = ({ article, highlightedWords }) => {
         sx={{
           width: 400,
           height: 530,
+          transition: 'step-start',
         }}
+        style={{ transition: 'all 0.3s linear' }}
         className={styles.card}
       >
         <CardActionArea>
